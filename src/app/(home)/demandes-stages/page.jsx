@@ -1,7 +1,9 @@
+import Navbar from "@/components/navbar";
+
 export default function StagesRequests() {
   return (
     <div>
-      <h1>Demande de stages</h1>
+      <Navbar title={"Demande de stages"} />
     </div>
   );
 }

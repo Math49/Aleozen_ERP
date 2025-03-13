@@ -1,7 +1,11 @@
+import Navbar from "@/components/navbar";
+
 export default function FormationsRequests() {
   return (
-    <div>
-      <h1>Demande de formations</h1>
-    </div>
+    <>
+      <Navbar title={'Demande de formations'} />
+      <p>Onglet Tai Chi</p>
+      <p>Onglet Qi Gong</p>
+    </>
   );
 }

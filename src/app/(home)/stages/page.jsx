@@ -1,7 +1,9 @@
+import Navbar from "@/components/navbar";
+
 export default function Stages() {
   return (
     <div>
-      <h1>Gestion des stages</h1>
+      <Navbar title={"Gestion des stages"} />
     </div>
   );
 }

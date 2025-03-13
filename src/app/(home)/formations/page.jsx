@@ -1,7 +1,9 @@
+import Navbar from "@/components/navbar";
+
 export default function Formations() {
   return (
     <div>
-      <h1>Gestion des formations</h1>
+      <Navbar title={"Gestion des formations"} />      
     </div>
   );
 }

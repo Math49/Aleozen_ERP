@@ -1,7 +1,9 @@
+import Navbar from "@/components/navbar";
+
 export default function Newsletter() {
   return (
     <div>
-      <h1>Base d'email de newsletter</h1>
+      <Navbar title={"Base d'email de newsletter"} />
     </div>
   );
 }

@@ -1,0 +1,38 @@
+.sidebar{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: var(--sidebar-width);
+    background-color: var(--main-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .container{
+        padding: 2rem 1rem 0 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 2.5rem;
+        .brand{
+            color: #fff;
+            text-decoration: none;
+            text-align: center;
+        }
+        .links{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            .link{
+                padding: 10px;
+                color: #fff;
+                text-decoration: none;
+            }
+        }
+    }
+    .logout{
+        margin: 1rem;
+        padding: 1.15rem .5rem;
+        background-color: var(--secondary-color);
+        border-radius: .5rem;
+    }
+}

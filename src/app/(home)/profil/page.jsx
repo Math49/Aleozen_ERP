@@ -1,9 +1,9 @@
 import Navbar from "@/components/navbar";
 
-export default function Dashboard() {
+export default function Profil() {
   return (
     <div>
-      <Navbar title={"Dashboard"} />
+      <Navbar title={"Profil"} />
     </div>
   );
 }

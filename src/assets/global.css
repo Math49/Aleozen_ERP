@@ -1,0 +1,18 @@
+:root {
+    --sidebar-width: 250px;
+    --main-color: #1a0a3e;
+    --secondary-color: #fff;
+    --bg-color: #F0F5FB;
+  }
+
+html, body{
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    height: 100vh;
+    max-height: 100vh;
+}
+main{
+    margin-left: var(--sidebar-width);
+    padding: 1rem 3rem;
+}

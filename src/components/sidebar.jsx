@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { LogOut } from "lucide-react";
 import '@/style/sidebar.css';
 
 export default function Sidebar() {
@@ -16,7 +17,8 @@ export default function Sidebar() {
           </div>
         </div>
         <div className="logout">
-            <div>Logout</div>
+            <p>Déconnexion</p>
+            <LogOut />
         </div>
       </div>
     );

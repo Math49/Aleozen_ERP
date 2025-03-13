@@ -1,11 +1,13 @@
 import Navbar from "@/components/navbar";
+import DataTable from "@/components/table";
 
 export default function FormationsRequests() {
   return (
     <>
       <Navbar title={'Demande de formations'} />
-      <p>Onglet Tai Chi</p>
-      <p>Onglet Qi Gong</p>
+      <div className="content">
+        <DataTable />
+      </div>
     </>
   );
 }

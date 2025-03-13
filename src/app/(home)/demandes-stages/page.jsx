@@ -1,9 +1,13 @@
 import Navbar from "@/components/navbar";
+import DataTable from "@/components/table";
 
 export default function StagesRequests() {
   return (
-    <div>
+    <>
       <Navbar title={"Demande de stages"} />
-    </div>
+      <div className="content">
+        <DataTable />
+      </div>
+    </>
   );
 }

@@ -30,9 +30,13 @@
         }
     }
     .logout{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         margin: 1rem;
-        padding: 1.15rem .5rem;
+        padding: 1rem .5rem;
         background-color: var(--secondary-color);
         border-radius: .5rem;
+        cursor: pointer;
     }
 }

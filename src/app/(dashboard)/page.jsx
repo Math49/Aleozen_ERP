@@ -15,8 +15,8 @@ export default function Dashboard() {
           <NumberCard title="Nombre de demandes" type="Contact" content={2}/>
         </div>
         <div className="flex justify-between gap-6 h-2/3">
-          <SliderCard title="Les futurs formations"/>
-          <SliderCard title="Les futurs stages"/>
+          <SliderCard title="Prochaine(s) formation(s)"/>
+          <SliderCard title="Prochain(s) stage(s)"/>
         </div>
       </div>
     </>

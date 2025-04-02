@@ -7,6 +7,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Ellipsis } from "lucide-react";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationPrevious, PaginationNext } from "@/components/ui/pagination";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogDescription } from "@/components/ui/dialog";
 
 const users = [
   { id: 1, name: "Aubin Manceau", email: "aubinmanceau0@gmail.com", phone: "07 65 68 74 10", status: "accepted" },
@@ -27,6 +31,8 @@ const users = [
 const ITEMS_PER_PAGE = 8;
 
 export function DataTableCandidature() {
+    const pathname = usePathname(); 
+
     const [page, setPage] = useState(1);
     const [search, setSearch] = useState("");
     const [statusFilter, setStatusFilter] = useState("all");
@@ -81,9 +87,33 @@ export function DataTableCandidature() {
                                 {user.status === "accepted" ? "Accepté" : user.status === "pending" ? "En attente" : "Refusé"}
                             </TableCell>
                             <TableCell className="text-right">
-                                <Button variant="ghost" size="icon" className="cursor-pointer">
-                                    <Ellipsis className="h-5 w-5" />
-                                </Button>
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger asChild>
+                                        <Button variant="ghost" size="icon" className="cursor-pointer">
+                                            <Ellipsis className="h-5 w-5" />
+                                        </Button>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent align="end">
+                                        <DropdownMenuItem><Link href={`${pathname}/${user.id}`}>Voir le détail</Link></DropdownMenuItem>
+                                        <Dialog>
+                                        <DialogTrigger>
+                                            <DropdownMenuItem onSelect={(e) => e.preventDefault()}>Supprimer</DropdownMenuItem>
+                                        </DialogTrigger>
+                                        <DialogContent>
+                                            <DialogHeader>
+                                            <DialogTitle>Êtes-vous sûr de vouloir supprimer cette candidature ?</DialogTitle>
+                                            <DialogDescription>
+                                                Attention, cette action est irréversible !
+                                                <div className="flex justify-end mt-4 gap-2">
+                                                    <Button variant="ghost" className="cursor-pointer">Annuler</Button>
+                                                    <Button variant="destructive" className="cursor-pointer">Supprimer</Button>
+                                                </div>
+                                            </DialogDescription>
+                                            </DialogHeader>
+                                        </DialogContent>
+                                        </Dialog>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
                             </TableCell>
                         </TableRow>
                     ))}

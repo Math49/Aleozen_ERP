@@ -1,11 +1,11 @@
 import { AppNavbar } from "@/components/navbar";
 
-export default function Profil() {
+export default function candidatureFormations() {
   return (
     <>
-      <AppNavbar pageName="Profil"/>
+      <AppNavbar pageName="Candidatures pour formations"/>
       <div className="flex flex-col gap-6 p-8 pt-0 h-full">
-        <h1>Profil</h1>
+
       </div>
     </>
   );

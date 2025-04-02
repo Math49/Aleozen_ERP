@@ -3,8 +3,9 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Ellipsis } from "lucide-react";
+import { Trash } from "lucide-react";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationPrevious, PaginationNext } from "@/components/ui/pagination";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogDescription } from "@/components/ui/dialog";
 
 const emails = [
   { id: 1, email: "aubinmanceau0@gmail.com", date: "2023-10-01" },
@@ -41,9 +42,25 @@ export function DataTableEmail() {
                             <TableCell>{email.email}</TableCell>
                             <TableCell>{email.date}</TableCell>
                             <TableCell className="text-right">
-                                <Button variant="ghost" size="icon" className="cursor-pointer">
-                                    <Ellipsis className="h-5 w-5" />
-                                </Button>
+                                <Dialog>
+                                    <DialogTrigger>
+                                        <Button variant="ghost" size="icon" className="cursor-pointer">
+                                            <Trash className="h-5 w-5" />
+                                        </Button>
+                                    </DialogTrigger>
+                                    <DialogContent>
+                                        <DialogHeader>
+                                        <DialogTitle>Êtes-vous sûr de vouloir supprimer cet email ?</DialogTitle>
+                                        <DialogDescription>
+                                            <p>Attention, cette action est irréversible !</p>
+                                            <div className="flex justify-end mt-4 gap-2">
+                                                <Button variant="ghost" className="cursor-pointer">Annuler</Button>
+                                                <Button variant="destructive" className="cursor-pointer">Supprimer</Button>
+                                            </div>
+                                        </DialogDescription>
+                                        </DialogHeader>
+                                    </DialogContent>
+                                </Dialog>
                             </TableCell>
                         </TableRow>
                     ))}

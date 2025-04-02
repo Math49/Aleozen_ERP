@@ -7,28 +7,18 @@ import { Trash } from "lucide-react";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationPrevious, PaginationNext } from "@/components/ui/pagination";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogDescription } from "@/components/ui/dialog";
 
-const emails = [
-  { id: 1, email: "aubinmanceau0@gmail.com", date: "2023-10-01" },
-  { id: 2, email: "aubinmanceau0@gmail.com", date: "2023-10-01" },
-  { id: 3, email: "aubinmanceau0@gmail.com", date: "2023-10-01" },
-  { id: 4, email: "aubinmanceau0@gmail.com", date: "2023-10-01" },
-  { id: 5, email: "aubinmanceau0@gmail.com", date: "2023-10-01" },
-  { id: 6, email: "aubinmanceau0@gmail.com", date: "2023-10-01" },
-];
-
 const ITEMS_PER_PAGE = 8;
 
-export function DataTableEmail() {
+export function DataTableEmail({data}) {
     const [page, setPage] = useState(1);
 
-    const totalPages = Math.ceil(emails.length / ITEMS_PER_PAGE);
+    const totalPages = Math.ceil(data.length / ITEMS_PER_PAGE);
     const startIndex = (page - 1) * ITEMS_PER_PAGE;
     const endIndex = startIndex + ITEMS_PER_PAGE;
-    const paginatedEmails = emails.slice(startIndex, endIndex);
+    const paginatedEmails = data.slice(startIndex, endIndex);
 
     return (
-        emails.length > 0 ? (
-            <div className="h-full flex flex-col gap-2">
+        <div className="h-full flex flex-col gap-2">
             <Table className="w-full border rounded-lg">
                 <TableHeader>
                     <TableRow className="bg-gray-100">
@@ -94,10 +84,5 @@ export function DataTableEmail() {
                 </PaginationContent>
             </Pagination>
         </div>
-        ) : (
-            <div className="flex items-center justify-center h-full">
-                <p className="text-gray-500">Aucun email trouvé.</p>
-            </div>
-        )
     );
 }

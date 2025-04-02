@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Ellipsis } from "lucide-react";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationPrevious, PaginationNext } from "@/components/ui/pagination";
@@ -11,48 +12,44 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogDescription } from "@/components/ui/dialog";
 
-const contacts = [
-  { id: 1, name: "Aubin Manceau", email: "aubinmanceau0@gmail.com", phone: "07 65 68 74 10" },
-  { id: 2, name: "Jane Smith", email: "jane@example.com", phone: "07 65 68 74 10" },
-  { id: 3, name: "John Doe", email: "john@example.com", phone: "07 65 68 74 10" },
-  { id: 4, name: "Jane Smith", email: "jane@example.com", phone: "07 65 68 74 10" },
-  { id: 5, name: "John Doe", email: "john@example.com", phone: "07 65 68 74 10" },
-  { id: 6, name: "Jane Smith", email: "jane@example.com", phone: "07 65 68 74 10" },
-  { id: 7, name: "John Doe", email: "john@example.com", phone: "07 65 68 74 10" },
-  { id: 8, name: "Jane Smith", email: "jane@example.com", phone: "07 65 68 74 10" },
-  { id: 9, name: "John Doe", email: "john@example.com", phone: "07 65 68 74 10" },
-  { id: 10, name: "Jane Smith", email: "jane@example.com", phone: "07 65 68 74 10" },
-  { id: 11, name: "John Doe", email: "john@example.com", phone: "07 65 68 74 10" },
-  { id: 12, name: "Jane Smith", email: "jane@example.com", phone: "07 65 68 74 10" },
-  { id: 13, name: "John Doe", email: "john@example.com", phone: "07 65 68 74 10" },
-];
-
 const ITEMS_PER_PAGE = 8;
 
-export function DataTableContact() {
-    const pathname = usePathname();
+export function DataTableCandidature({data}) {
+    const pathname = usePathname(); 
 
     const [page, setPage] = useState(1);
     const [search, setSearch] = useState("");
+    const [statusFilter, setStatusFilter] = useState("all");
 
-    const filteredContacts = contacts.filter((contact) =>
-        contact.name.toLowerCase().includes(search.toLowerCase())
+    const filteredUsers = data.filter(user => 
+        user.name.toLowerCase().includes(search.toLowerCase()) &&
+        (statusFilter === "all" || user.status === statusFilter)
     );
 
-    const totalPages = Math.ceil(filteredContacts.length / ITEMS_PER_PAGE);
+    const totalPages = Math.ceil(filteredUsers.length / ITEMS_PER_PAGE);
     const startIndex = (page - 1) * ITEMS_PER_PAGE;
     const endIndex = startIndex + ITEMS_PER_PAGE;
-    const paginatedContacts = filteredContacts.slice(startIndex, endIndex);
+    const paginatedUsers = filteredUsers.slice(startIndex, endIndex);
 
     return (
-        contacts.length > 0 ? (
-            <div className="h-full flex flex-col gap-2">
+        <div className="h-full flex flex-col gap-2">
             <div className="flex gap-4 mb-2">
                 <Input
                     placeholder="Rechercher par nom..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                 />
+                <Select onValueChange={setStatusFilter} value={statusFilter}>
+                    <SelectTrigger className="w-48">
+                        <SelectValue placeholder="Filtrer par statut" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="all">Tous</SelectItem>
+                        <SelectItem value="accepted">Accepté</SelectItem>
+                        <SelectItem value="pending">En attente</SelectItem>
+                        <SelectItem value="refused">Refusé</SelectItem>
+                    </SelectContent>
+                </Select>
             </div>
             <Table className="w-full border rounded-lg">
                 <TableHeader>
@@ -60,15 +57,19 @@ export function DataTableContact() {
                         <TableHead>Prénom / Nom</TableHead>
                         <TableHead>Email</TableHead>
                         <TableHead>Téléphone</TableHead>
+                        <TableHead>Statut</TableHead>
                         <TableHead className="text-right"></TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {paginatedContacts.map((contact) => (
-                        <TableRow key={contact.id}>
-                            <TableCell>{contact.name}</TableCell>
-                            <TableCell>{contact.email}</TableCell>
-                            <TableCell>{contact.phone}</TableCell>
+                    {paginatedUsers.map((user) => (
+                        <TableRow key={user.id}>
+                            <TableCell>{user.name}</TableCell>
+                            <TableCell>{user.email}</TableCell>
+                            <TableCell>{user.phone}</TableCell>
+                            <TableCell>
+                                {user.status === "accepted" ? "Accepté" : user.status === "pending" ? "En attente" : "Refusé"}
+                            </TableCell>
                             <TableCell className="text-right">
                                 <DropdownMenu>
                                     <DropdownMenuTrigger asChild>
@@ -77,14 +78,14 @@ export function DataTableContact() {
                                         </Button>
                                     </DropdownMenuTrigger>
                                     <DropdownMenuContent align="end">
-                                        <DropdownMenuItem><Link href={`${pathname}/${contact.id}`}>Voir le détail</Link></DropdownMenuItem>
+                                        <DropdownMenuItem><Link href={`${pathname}/${user.id}`}>Voir le détail</Link></DropdownMenuItem>
                                         <Dialog>
                                         <DialogTrigger>
                                             <DropdownMenuItem onSelect={(e) => e.preventDefault()}>Supprimer</DropdownMenuItem>
                                         </DialogTrigger>
                                         <DialogContent>
                                             <DialogHeader>
-                                            <DialogTitle>Êtes-vous sûr de vouloir supprimer cette demande de contact ?</DialogTitle>
+                                            <DialogTitle>Êtes-vous sûr de vouloir supprimer cette candidature ?</DialogTitle>
                                             <DialogDescription>
                                                 Attention, cette action est irréversible !
                                                 <div className="flex justify-end mt-4 gap-2">
@@ -129,10 +130,5 @@ export function DataTableContact() {
                 </PaginationContent>
             </Pagination>
         </div>
-        ) : (
-            <div className="flex items-center justify-center h-full">
-                <p className="text-gray-500">Aucune demande de contact trouvée.</p>
-            </div>
-        )
     );
 }

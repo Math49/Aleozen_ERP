@@ -43,12 +43,12 @@ export function DataTableEmail({data}) {
                                         <DialogHeader>
                                         <DialogTitle>Êtes-vous sûr de vouloir supprimer cet email ?</DialogTitle>
                                         <DialogDescription>
-                                            <p>Attention, cette action est irréversible !</p>
-                                            <div className="flex justify-end mt-4 gap-2">
-                                                <Button variant="ghost" className="cursor-pointer">Annuler</Button>
-                                                <Button variant="destructive" className="cursor-pointer">Supprimer</Button>
-                                            </div>
+                                            Attention, cette action est irréversible !
                                         </DialogDescription>
+                                        <div className="flex justify-end mt-4 gap-2">
+                                            <Button variant="ghost" className="cursor-pointer">Annuler</Button>
+                                            <Button variant="destructive" className="cursor-pointer">Supprimer</Button>
+                                        </div>
                                         </DialogHeader>
                                     </DialogContent>
                                 </Dialog>

@@ -70,11 +70,11 @@ export function DataTableContact({data}) {
                                             <DialogTitle>Êtes-vous sûr de vouloir supprimer cette demande de contact ?</DialogTitle>
                                             <DialogDescription>
                                                 Attention, cette action est irréversible !
-                                                <div className="flex justify-end mt-4 gap-2">
-                                                    <Button variant="ghost" className="cursor-pointer">Annuler</Button>
-                                                    <Button variant="destructive" className="cursor-pointer">Supprimer</Button>
-                                                </div>
                                             </DialogDescription>
+                                            <div className="flex justify-end mt-4 gap-2">
+                                                <Button variant="ghost" className="cursor-pointer">Annuler</Button>
+                                                <Button variant="destructive" className="cursor-pointer">Supprimer</Button>
+                                            </div>
                                             </DialogHeader>
                                         </DialogContent>
                                         </Dialog>

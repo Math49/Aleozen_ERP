@@ -26,12 +26,12 @@ export function NavUser({ user }) {
             <DialogHeader>
               <DialogTitle>Êtes-vous sûr de vouloir vous déconnecter ?</DialogTitle>
               <DialogDescription>
-                <p>Cette action vous redirigera vers la page de connexion.</p>
-                <div className="flex justify-end mt-4 gap-2">
-                  <Button variant="ghost" className="cursor-pointer">Annuler</Button>
-                  <Button variant="destructive" className="cursor-pointer">Déconnexion</Button>
-                </div>
+                Cette action vous redirigera vers la page de connexion.
               </DialogDescription>
+              <div className="flex justify-end mt-4 gap-2">
+                <Button variant="ghost" className="cursor-pointer">Annuler</Button>
+                <Button variant="destructive" className="cursor-pointer">Déconnexion</Button>
+              </div>
             </DialogHeader>
           </DialogContent>
         </Dialog>

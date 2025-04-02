@@ -27,7 +27,8 @@ export function DataTableEmail() {
     const paginatedEmails = emails.slice(startIndex, endIndex);
 
     return (
-        <div className="h-full flex flex-col gap-2">
+        emails.length > 0 ? (
+            <div className="h-full flex flex-col gap-2">
             <Table className="w-full border rounded-lg">
                 <TableHeader>
                     <TableRow className="bg-gray-100">
@@ -93,5 +94,10 @@ export function DataTableEmail() {
                 </PaginationContent>
             </Pagination>
         </div>
+        ) : (
+            <div className="flex items-center justify-center h-full">
+                <p className="text-gray-500">Aucun email trouvé.</p>
+            </div>
+        )
     );
 }

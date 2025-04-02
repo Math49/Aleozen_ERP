@@ -48,7 +48,8 @@ export function DataTableCandidature() {
     const paginatedUsers = filteredUsers.slice(startIndex, endIndex);
 
     return (
-        <div className="h-full flex flex-col gap-2">
+        users.length > 0 ? (
+            <div className="h-full flex flex-col gap-2">
             <div className="flex gap-4 mb-2">
                 <Input
                     placeholder="Rechercher par nom..."
@@ -146,5 +147,10 @@ export function DataTableCandidature() {
                 </PaginationContent>
             </Pagination>
         </div>
+        ) : (
+            <div className="flex items-center justify-center h-full">
+                <p className="text-gray-500">Aucune candidature trouvée.</p>
+            </div>
+        )
     );
 }

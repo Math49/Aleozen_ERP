@@ -4,7 +4,7 @@ import { EmptyData } from "@/components/data/emptyData";
 
 export default function candidatureInterventions() {
   const users = [
-
+    {id: 1, name: "Aubin Manceau", email: "aubin.manceau@gmail.com", phone: "06 12 34 56 78", status: "accepted"},
   ];
   
   return (

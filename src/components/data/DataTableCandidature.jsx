@@ -62,45 +62,53 @@ export function DataTableCandidature({data}) {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {paginatedUsers.map((user) => (
-                        <TableRow key={user.id}>
-                            <TableCell>{user.name}</TableCell>
-                            <TableCell>{user.email}</TableCell>
-                            <TableCell>{user.phone}</TableCell>
-                            <TableCell>
-                                {user.status === "accepted" ? "Accepté" : user.status === "pending" ? "En attente" : "Refusé"}
-                            </TableCell>
-                            <TableCell className="text-right">
-                                <DropdownMenu>
-                                    <DropdownMenuTrigger asChild>
-                                        <Button variant="ghost" size="icon" className="cursor-pointer">
-                                            <Ellipsis className="h-5 w-5" />
-                                        </Button>
-                                    </DropdownMenuTrigger>
-                                    <DropdownMenuContent align="end">
-                                        <DropdownMenuItem><Link href={`${pathname}/${user.id}`}>Voir le détail</Link></DropdownMenuItem>
-                                        <Dialog>
-                                        <DialogTrigger>
-                                            <DropdownMenuItem onSelect={(e) => e.preventDefault()}>Supprimer</DropdownMenuItem>
-                                        </DialogTrigger>
-                                        <DialogContent>
-                                            <DialogHeader>
-                                            <DialogTitle>Êtes-vous sûr de vouloir supprimer cette candidature ?</DialogTitle>
-                                            <DialogDescription>
-                                                Attention, cette action est irréversible !
-                                            </DialogDescription>
-                                            <div className="flex justify-end mt-4 gap-2">
-                                                <Button variant="ghost" className="cursor-pointer">Annuler</Button>
-                                                <Button variant="destructive" className="cursor-pointer">Supprimer</Button>
-                                            </div>
-                                            </DialogHeader>
-                                        </DialogContent>
-                                        </Dialog>
-                                    </DropdownMenuContent>
-                                </DropdownMenu>
+                    {paginatedUsers.length > 0 ? (
+                        paginatedUsers.map((user) => (
+                            <TableRow key={user.id}>
+                                <TableCell>{user.name}</TableCell>
+                                <TableCell>{user.email}</TableCell>
+                                <TableCell>{user.phone}</TableCell>
+                                <TableCell>
+                                    {user.status === "accepted" ? "Accepté" : user.status === "pending" ? "En attente" : "Refusé"}
+                                </TableCell>
+                                <TableCell className="text-right">
+                                    <DropdownMenu>
+                                        <DropdownMenuTrigger asChild>
+                                            <Button variant="ghost" size="icon" className="cursor-pointer">
+                                                <Ellipsis className="h-5 w-5" />
+                                            </Button>
+                                        </DropdownMenuTrigger>
+                                        <DropdownMenuContent align="end">
+                                            <DropdownMenuItem><Link href={`${pathname}/${user.id}`}>Voir le détail</Link></DropdownMenuItem>
+                                            <Dialog>
+                                            <DialogTrigger>
+                                                <DropdownMenuItem onSelect={(e) => e.preventDefault()}>Supprimer</DropdownMenuItem>
+                                            </DialogTrigger>
+                                            <DialogContent>
+                                                <DialogHeader>
+                                                <DialogTitle>Êtes-vous sûr de vouloir supprimer cette candidature ?</DialogTitle>
+                                                <DialogDescription>
+                                                    Attention, cette action est irréversible !
+                                                </DialogDescription>
+                                                <div className="flex justify-end mt-4 gap-2">
+                                                    <Button variant="ghost" className="cursor-pointer">Annuler</Button>
+                                                    <Button variant="destructive" className="cursor-pointer">Supprimer</Button>
+                                                </div>
+                                                </DialogHeader>
+                                            </DialogContent>
+                                            </Dialog>
+                                        </DropdownMenuContent>
+                                    </DropdownMenu>
+                                </TableCell>
+                            </TableRow>
+                        ))
+                    ) : (
+                        <TableRow>
+                            <TableCell colSpan={5} className="text-center py-4">
+                                Aucun résultat trouvé.
                             </TableCell>
                         </TableRow>
-                    ))}
+                    )}
                 </TableBody>
             </Table>  
             <Pagination>

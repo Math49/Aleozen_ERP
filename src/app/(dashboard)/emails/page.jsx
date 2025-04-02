@@ -1,10 +1,11 @@
 import { AppNavbar } from "@/components/navbar";
 import { DataTableEmail } from "@/components/data/DataTableEmail";
 import { EmptyData } from "@/components/data/EmptyData";
+import { date } from "zod";
 
 export default function Emails() {
   const emails = [
-
+    {id: 1, email: "aubin.manceau@gmail.com", date: "2023-10-01" },
   ];
 
   return (

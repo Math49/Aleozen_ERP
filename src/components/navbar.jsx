@@ -1,16 +1,16 @@
-import Link from 'next/link';
-import { ChevronDown } from 'lucide-react';
-import Avatar from '@mui/material/Avatar';
-import '@/style/navbar.css';
+"use client";
 
-export default function Navbar({ title }) {
+import { SidebarTrigger } from "@/components/ui/sidebar"
+import { Separator } from "@/components/ui/separator"
+
+export function AppNavbar({pageName}) {
   return (
-    <div className="navbar">
-    <h1>{title}</h1>
-    <Link href="/profil" className="profil">
-      <Avatar sx={{ width: 24, height: 24 }} alt="Aubin Manceau"/>
-      <p className="name">Aubin Manceau</p>
-    </Link>
-    </div>
-  );
+    <header className="flex h-24 shrink-0 items-center gap-2">
+      <div className="flex items-center gap-2 px-8">
+        <SidebarTrigger className="-ml-1" />
+        <Separator orientation="vertical" className="mr-2 data-[orientation=vertical]:h-4" />
+        <p>{pageName}</p>
+      </div>
+    </header>
+  )
 }

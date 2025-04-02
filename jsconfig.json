@@ -2,7 +2,8 @@
   "compilerOptions": {
     "paths": {
       "@/*": ["./src/*"],
-      "@/style/*": ["./src/assets/*"]
+      "@/styles/*": ["./src/assets/*"],
+      "@/public/*": ["./public/*"]
     }
   }
 }

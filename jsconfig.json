@@ -3,7 +3,8 @@
     "paths": {
       "@/*": ["./src/*"],
       "@/styles/*": ["./src/assets/*"],
-      "@/public/*": ["./public/*"]
+      "@/public/*": ["./public/*"],
+      "@/services/*": ["./src/services/*"],
     }
   }
 }

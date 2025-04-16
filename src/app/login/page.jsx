@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { login } from "@/services/auth";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -14,10 +15,13 @@ export default function Dashboard() {
   const [error, setError] = useState("");
   const router = useRouter();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const res = await login(email, password);
+    console.log(res);
     
-    if (email === "test@test.fr" && password === "test") {
+    if (res?.token) {
       router.push("/");
     } else {
       setError("Email ou mot de passe incorrect");

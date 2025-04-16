@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 
 // TODO
-// Vérifier la validité du token JWT
+// Vérifier  la validité du token JWT
 // Vérifier si le token est expiré ou non
 
 export function middleware(request) {

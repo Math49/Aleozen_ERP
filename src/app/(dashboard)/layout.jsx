@@ -9,11 +9,9 @@ export default function RootLayout({ children }) {
         <title>Aléozen | Tableau de bord</title>
       </head>
       <body>
-        <SidebarProvider>
+        <SidebarProvider className='flex w-screen'>
           <AppSidebar />
-          <SidebarInset>
-            {children}
-          </SidebarInset>
+          <SidebarInset className="flex-1 overflow-auto">{children}</SidebarInset>
         </SidebarProvider>
       </body>
     </html>

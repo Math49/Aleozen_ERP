@@ -1,5 +1,5 @@
 import { getAuthToken } from "@/services/auth";
-const API_BASE_URL = "http://127.0.0.1:8000/api";
+const API_BASE_URL = "https://api.aleozen.mathis-mercier.mds-angers.yt/api";
 
 export async function fetchData(endpoint, options = {}) {
   try {

@@ -43,3 +43,44 @@ export async function getAllTrainingReservations() {
         return null;
     }
 }
+
+export async function getTrainingReservationById(id) {
+    try {
+        const res = await fetchData(`/training-reservations/${id}`, {
+            method: "GET",
+        });
+    
+        return await res;
+    } catch (error) {
+        return null;
+    }
+}
+
+export async function updateTrainingReservationById(id, data) {
+    try {
+        const res = await fetchData(`/training-reservations/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          });
+    
+        return await res;
+    } catch (error) {
+        return null;
+    }
+}
+
+export async function getTrainingById(id) {
+    try {
+        const res = await fetchData(`/trainings/${id}`, {
+            method: "GET",
+        });
+    
+        return await res;
+    } catch (error) {
+        return null;
+    }
+}
+

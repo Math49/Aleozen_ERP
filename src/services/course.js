@@ -43,3 +43,43 @@ export async function getAllCourseReservations() {
         return null;
     }
 }
+
+export async function getCourseById(id) {
+    try {
+        const res = await fetchData(`/courses/${id}`, {
+            method: "GET",
+        });
+    
+        return await res;
+    } catch (error) {
+        return null;
+    }
+}
+
+export async function getCourseReservationById(id) {
+    try {
+        const res = await fetchData(`/course-reservations/${id}`, {
+            method: "GET",
+        });
+    
+        return await res;
+    } catch (error) {
+        return null;
+    }
+}
+
+export async function updateCourseReservationById(id, data) {
+    try {
+        const res = await fetchData(`/course-reservations/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          });
+    
+        return await res;
+    } catch (error) {
+        return null;
+    }
+}

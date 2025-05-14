@@ -2,26 +2,33 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { login } from "@/services/auth";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { LoaderCircle } from "lucide-react";
 
 export default function Dashboard() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+
+    const res = await login(email, password);
     
-    if (email === "test@test.fr" && password === "test") {
+    if (res?.token) {
       router.push("/");
     } else {
       setError("Email ou mot de passe incorrect");
     }
+    setLoading(false);
   };
 
   return (
@@ -59,7 +66,7 @@ export default function Dashboard() {
             />
           </div>
           <Button type="submit" className="w-full">
-            Connexion
+            {loading ? <LoaderCircle className="animate-spin mr-2" /> : "Connection"}
           </Button>
         </form>
       </CardContent>

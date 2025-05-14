@@ -20,16 +20,21 @@ export function DataTableCandidature({data}) {
     const [page, setPage] = useState(1);
     const [search, setSearch] = useState("");
     const [statusFilter, setStatusFilter] = useState("all");
+    const [typeFilter, setTypeFilter] = useState("all");
 
-    const filteredUsers = data.filter(user => 
-        user.name.toLowerCase().includes(search.toLowerCase()) &&
-        (statusFilter === "all" || user.status === statusFilter)
+    const filteredData = data.filter(data => 
+        (data.first_name.toLowerCase() + ' ' + data.last_name.toLowerCase()).includes(search.toLowerCase()) &&
+        (statusFilter === "all" || data.status === statusFilter) &&
+        (typeFilter === "all" || 
+            (data.training ? data.training.type === typeFilter : 
+             data.course ? data.course.type === typeFilter :
+             data.intervention ? data.intervention.type === typeFilter : false))
     );
 
-    const totalPages = Math.ceil(filteredUsers.length / ITEMS_PER_PAGE);
+    const totalPages = Math.ceil(filteredData.length / ITEMS_PER_PAGE);
     const startIndex = (page - 1) * ITEMS_PER_PAGE;
     const endIndex = startIndex + ITEMS_PER_PAGE;
-    const paginatedUsers = filteredUsers.slice(startIndex, endIndex);
+    const paginatedData = filteredData.slice(startIndex, endIndex);
 
     return (
         <div className="h-full flex flex-col gap-2">
@@ -39,15 +44,25 @@ export function DataTableCandidature({data}) {
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                 />
+                <Select onValueChange={setTypeFilter} value={typeFilter}>
+                    <SelectTrigger className="w-48">
+                        <SelectValue placeholder="Filtrer par type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="all">Tous</SelectItem>
+                        <SelectItem value="offline">Tai Chi</SelectItem>
+                        <SelectItem value="online">Qi Qong</SelectItem>
+                    </SelectContent>
+                </Select>
                 <Select onValueChange={setStatusFilter} value={statusFilter}>
                     <SelectTrigger className="w-48">
                         <SelectValue placeholder="Filtrer par statut" />
                     </SelectTrigger>
                     <SelectContent>
                         <SelectItem value="all">Tous</SelectItem>
-                        <SelectItem value="accepted">Accepté</SelectItem>
+                        <SelectItem value="approved">Accepté</SelectItem>
                         <SelectItem value="pending">En attente</SelectItem>
-                        <SelectItem value="refused">Refusé</SelectItem>
+                        <SelectItem value="rejected">Refusé</SelectItem>
                     </SelectContent>
                 </Select>
             </div>
@@ -55,6 +70,7 @@ export function DataTableCandidature({data}) {
                 <TableHeader>
                     <TableRow className="bg-gray-100">
                         <TableHead>Prénom / Nom</TableHead>
+                        <TableHead>Type</TableHead>
                         <TableHead>Email</TableHead>
                         <TableHead>Téléphone</TableHead>
                         <TableHead>Statut</TableHead>
@@ -62,14 +78,15 @@ export function DataTableCandidature({data}) {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {paginatedUsers.length > 0 ? (
-                        paginatedUsers.map((user) => (
-                            <TableRow key={user.id}>
-                                <TableCell>{user.name}</TableCell>
-                                <TableCell>{user.email}</TableCell>
-                                <TableCell>{user.phone}</TableCell>
+                    {paginatedData.length > 0 ? (
+                        paginatedData.map((data) => (
+                            <TableRow key={data.reservation_id}>
+                                <TableCell>{data.first_name + ' ' + data.last_name}</TableCell>
+                                <TableCell>{data.training ? data.training.type : data.course ? data.course.type : data.type ? data.type : false}</TableCell>
+                                <TableCell>{data.email}</TableCell>
+                                <TableCell>{data.phone}</TableCell>
                                 <TableCell>
-                                    {user.status === "accepted" ? "Accepté" : user.status === "pending" ? "En attente" : "Refusé"}
+                                    {data.status === "approved" ? "Accepté" : data.status === "rejected" ? "Refusé" : "En attente"}
                                 </TableCell>
                                 <TableCell className="text-right">
                                     <DropdownMenu>
@@ -79,7 +96,7 @@ export function DataTableCandidature({data}) {
                                             </Button>
                                         </DropdownMenuTrigger>
                                         <DropdownMenuContent align="end">
-                                            <DropdownMenuItem><Link href={`${pathname}/${user.id}`}>Voir le détail</Link></DropdownMenuItem>
+                                            <DropdownMenuItem><Link href={`${pathname}/${data.reservation_id}`}>Voir le détail</Link></DropdownMenuItem>
                                             <Dialog>
                                             <DialogTrigger>
                                                 <DropdownMenuItem onSelect={(e) => e.preventDefault()}>Supprimer</DropdownMenuItem>

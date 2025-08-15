@@ -63,14 +63,13 @@ export default function Dashboard() {
       <AppNavbar pageName="Tableau de bord"/>
       {loading && (
         <div className="flex flex-col gap-6 p-8 pt-0 h-full">
-          <div className="flex justify-between gap-6 h-1/3">
-            <Skeleton className="w-full" />
-            <Skeleton className="w-full" />
-            <Skeleton className="w-full" />
-            <Skeleton className="w-full" />
-            <Skeleton className="w-full" />
+          <div className="w-full h-2/3 rounded-xl">
+            <Skeleton className="w-full h-full" />
           </div>
-          <div className="flex justify-between gap-6 h-2/3 w-full">
+          <div className="grid items:center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 h-1/3">
+            <Skeleton className="w-full h-full" />
+            <Skeleton className="w-full h-full" />
+            <Skeleton className="w-full h-full" />
             <Skeleton className="w-full h-full" />
             <Skeleton className="w-full h-full" />
           </div>
@@ -78,16 +77,15 @@ export default function Dashboard() {
       )}
       {!loading &&(
         <div className="flex flex-col gap-6 p-8 pt-0 h-full">
-          <div className="flex justify-between gap-6 h-1/3">
+          <div className="w-full h-2/3 bg-card text-card-foreground rounded-xl border py-6 shadow-sm">
+
+          </div>
+          <div className="grid justify-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 h-1/3">
             <NumberCard title="Nombre de candidatures" type="Formations" content={trainingReservations}/>
             <NumberCard title="Nombre de candidatures" type="Stages" content={courseReservations}/>
             <NumberCard title="Nombre de candidatures" type="Interventions" content={interventionReservations}/>
             <NumberCard title="Nombre d'emails" type="Base d'emails" content={4}/>
             <NumberCard title="Nombre de demandes" type="Contact" content={2}/>
-          </div>
-          <div className="flex justify-between gap-6 h-2/3 w-[calc(50%-12px)]">
-            <SliderCard title="Prochaine(s) formation(s)" data={trainings}/>
-            <SliderCard title="Prochain(s) stage(s)" data={courses}/>
           </div>
         </div>
       )}

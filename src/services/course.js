@@ -83,3 +83,31 @@ export async function updateCourseReservationById(id, data) {
         return null;
     }
 }
+
+export async function deleteCourseReservationById(id) {
+    try {
+        const res = await fetchData(`/course-reservations/${id}`, {
+            method: "DELETE",
+        });
+    
+        return await res;
+    } catch (error) {
+        return false;
+    }
+}
+
+export async function createCourse(data) {
+    try {
+        const res = await fetchData(`/courses`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        });
+
+        return await res;
+    } catch (error) {
+        return null;
+    }
+}

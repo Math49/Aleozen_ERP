@@ -40,3 +40,15 @@ export async function updateInterventionReservationById(id, data) {
     }
 }
 
+export async function deleteInterventionReservationById(id) {
+    try {
+        const res = await fetchData(`/intervention-reservations/${id}`, {
+            method: "DELETE",
+        });
+    
+        return await res;
+    } catch (error) {
+        return false;
+    }
+}
+

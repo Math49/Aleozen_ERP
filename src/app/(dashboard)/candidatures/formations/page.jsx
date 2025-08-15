@@ -10,21 +10,22 @@ import { Skeleton } from "@/components/ui/skeleton";
 export default function candidatureFormations() {
   const [trainingReservations, setTrainingReservations] = useState([]);
   const [loading, setLoading] = useState(true);
-    useEffect(() => {
-      const fetchTrainingReservations = async () => {
-        try {
-          const dataTrainingReservations = await getAllTrainingReservations();
-          setTrainingReservations(dataTrainingReservations);
+  
+  useEffect(() => {
+    const fetchTrainingReservations = async () => {
+      try {
+        const dataTrainingReservations = await getAllTrainingReservations();
+        setTrainingReservations(dataTrainingReservations);
 
-        } catch (error) {
-            console.error("Erreur lors de la récupération des formations :", error);
-        } finally {
-            setLoading(false);
-        }
-      };
-      
-      fetchTrainingReservations();
-    }, []);
+      } catch (error) {
+          console.error("Erreur lors de la récupération des formations :", error);
+      } finally {
+          setLoading(false);
+      }
+    };
+    
+    fetchTrainingReservations();
+  }, []);
   
   return (
     <>

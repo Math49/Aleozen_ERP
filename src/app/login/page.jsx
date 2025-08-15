@@ -66,7 +66,7 @@ export default function Dashboard() {
             />
           </div>
           <Button type="submit" className="w-full">
-            {loading ? <LoaderCircle className="animate-spin mr-2" /> : "Connection"}
+            {loading ? <LoaderCircle className="animate-spin mr-2" /> : "Connexion"}
           </Button>
         </form>
       </CardContent>

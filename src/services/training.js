@@ -84,3 +84,31 @@ export async function getTrainingById(id) {
     }
 }
 
+export async function deleteTrainingReservationById(id) {
+    try {
+        const res = await fetchData(`/training-reservations/${id}`, {
+            method: "DELETE",
+        });
+    
+        return await res;
+    } catch (error) {
+        return false;
+    }
+}
+
+export async function createTraining(data) {
+    try {
+        const res = await fetchData(`/trainings`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        });
+
+        return await res;
+    } catch (error) {
+        return null;
+    }
+}
+

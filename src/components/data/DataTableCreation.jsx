@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { use, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -9,10 +9,13 @@ import { Pagination, PaginationContent, PaginationItem, PaginationLink, Paginati
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogDescription } from "@/components/ui/dialog";
 import { EmptyData } from "@/components/data/EmptyData";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const ITEMS_PER_PAGE = 8;
 
 export function DataTableCreation({ data }) {
+    const pathname = usePathname();
     const [page, setPage] = useState(1);
     const [statusFilter, setStatusFilter] = useState("all");
     const [typeFilter, setTypeFilter] = useState("all");
@@ -37,8 +40,9 @@ export function DataTableCreation({ data }) {
                     </SelectTrigger>
                     <SelectContent>
                         <SelectItem value="all">Tous les statuts</SelectItem>
-                        <SelectItem value="public">Publié</SelectItem>
-                        <SelectItem value="pending">Brouillon</SelectItem>
+                        <SelectItem value="published">Publié</SelectItem>
+                        <SelectItem value="draft">Brouillon</SelectItem>
+                        <SelectItem value="archived">Archivé</SelectItem>
                     </SelectContent>
                 </Select>
 
@@ -48,8 +52,8 @@ export function DataTableCreation({ data }) {
                     </SelectTrigger>
                     <SelectContent>
                         <SelectItem value="all">Tous les types</SelectItem>
-                        <SelectItem value="tai-chi">Tai Chi</SelectItem>
-                        <SelectItem value="qi-qong">Qi Qong</SelectItem>
+                        <SelectItem value="taichi">Tai Chi</SelectItem>
+                        <SelectItem value="qigong">Qi Gong</SelectItem>
                     </SelectContent>
                 </Select>
             </div>
@@ -69,14 +73,14 @@ export function DataTableCreation({ data }) {
                         paginatedData.map((data) => (
                             <TableRow key={data.id}>
                                 <TableCell>
-                                    {data.type === "tai-chi" ? "Tai Chi" : 
-                                     data.type === "qi-qong" ? "Qi Qong" : "N/A"}
+                                    {data.type === "taichi" ? "Tai Chi" : 
+                                     data.type === "qigong" ? "Qi Gong" : "N/A"}
                                 </TableCell>
-                                <TableCell>{data.date}</TableCell>
+                                <TableCell>{data.start_date ? new Date(data.start_date).toLocaleDateString() : "N/A"}</TableCell>
                                 <TableCell>{data.location}</TableCell>
                                 <TableCell>
-                                    {data.status === "public" ? "Public" : 
-                                     data.status === "pending" ? "Brouillon" : "N/A"}
+                                    {data.status === "published" ? "Publié" : 
+                                     data.status === "draft" ? "Brouillon" : "N/A"}
                                 </TableCell>
                                 <TableCell className="text-right">
                                     <DropdownMenu>
@@ -86,25 +90,7 @@ export function DataTableCreation({ data }) {
                                             </Button>
                                         </DropdownMenuTrigger>
                                         <DropdownMenuContent align="end">
-                                            <DropdownMenuItem>Voir le détail</DropdownMenuItem>
-                                            <DropdownMenuItem>Modifier</DropdownMenuItem>
-                                            <Dialog>
-                                                <DialogTrigger asChild>
-                                                    <DropdownMenuItem onSelect={(e) => e.preventDefault()}>Supprimer</DropdownMenuItem>
-                                                </DialogTrigger>
-                                                <DialogContent>
-                                                    <DialogHeader>
-                                                        <DialogTitle>Êtes-vous sûr de vouloir supprimer ce cours ?</DialogTitle>
-                                                        <DialogDescription>
-                                                            Attention, cette action est irréversible !
-                                                        </DialogDescription>
-                                                        <div className="flex justify-end mt-4 gap-2">
-                                                            <Button variant="ghost">Annuler</Button>
-                                                            <Button variant="destructive">Supprimer</Button>
-                                                        </div>
-                                                    </DialogHeader>
-                                                </DialogContent>
-                                            </Dialog>
+                                            <DropdownMenuItem><Link href={`${pathname}/${data.training_id ? data.training_id : data.course_id ? data.course_id : '#'}`}>Modifier</Link></DropdownMenuItem>
                                         </DropdownMenuContent>
                                     </DropdownMenu>
                                 </TableCell>
